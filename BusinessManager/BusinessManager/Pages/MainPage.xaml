@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BusinessManager.Pages.MainPage">
+
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <Label Text="{Binding InitMessage}" TextColor="Red" />
+        <Label Text="Main Page - Business Manager" />
+        <BoxView HeightRequest="3" Color="Green" />
+
+        <Label Text="Accounts Receivable" />
+        <BoxView HeightRequest="3" Color="Green" />
+
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Enter New Client" Command="{Binding ShowEnterNewClientPageCommand}" />
+            <Button Text="Projects" Command="{Binding ShowProjectsPageCommand}" />
+        </StackLayout>
+
+        <BoxView HeightRequest="3" Color="Green" />
+        <Label Text="Accounts Payable" />
+        <BoxView HeightRequest="3" Color="Green" />
+
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Enter New Bill" Command="{Binding ShowEnterNewBillPageCommand}" />
+            <Button Text="Suppliers" Command="{Binding ShowSuppliersPageCommand}" />
+        </StackLayout>
+
+        <Button Text="Budget Listing" Command="{Binding ShowBudgetListingPageCommand}" />
+    </StackLayout>
+  
+</ContentPage>

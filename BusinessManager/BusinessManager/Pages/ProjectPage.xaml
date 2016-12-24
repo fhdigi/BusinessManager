@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XamarinFormsBindablePicker.Controls;assembly=XamarinFormsBindablePicker"
+             x:Class="BusinessManager.Pages.ProjectPage" Title="Project">
+
+  <StackLayout Padding="10">
+
+    <Label Text="Project Name" />
+    <Entry Text="{Binding ProjectName}"></Entry>
+
+    <Label Text="Client" />
+    <controls:BindablePicker ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" />
+
+    <Label Text="Description" />
+    <Entry Text="{Binding Description}"></Entry>
+
+    <Label Text="Purchase Order Number" />
+    <Entry Text="{Binding PurchaseOrderNumber}"></Entry>
+
+    <Label Text="Purchase Order Amount" />
+    <Entry Text="{Binding PurchaseOrderAmount}"></Entry>
+
+    <Button Text="Save" Command="{Binding SaveBillCommand}" />
+
+  </StackLayout>
+
+</ContentPage>

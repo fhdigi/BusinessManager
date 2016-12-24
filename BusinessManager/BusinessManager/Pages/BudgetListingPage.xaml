@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:BusinessManager.Views;assembly=BusinessManager"
+             x:Class="BusinessManager.Pages.BudgetListingPage"
+             Title="Budget Listing">
+
+    <ScrollView HorizontalOptions="Center">
+
+        <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Start" Margin="15">
+            <Label Text="Week of 24-Oct-2016" FontSize="18" FontAttributes="Bold" TextColor="Black"
+                   HorizontalTextAlignment="Center" />
+            <views:LcTableView Margin="0,10,0,0" HeaderText="Cash" BudgetItems="{Binding AssetListing}"
+                               ListTotal="{Binding AssetTotal}" />
+            <views:LcTableView Margin="0,20,0,0" HeaderText="Expenses" BudgetItems="{Binding ExpenseListing}"
+                               ListTotal="{Binding ExpenseTotal}" />
+            <views:LcTableView Margin="0,20,0,0" HeaderText="Income" BudgetItems="{Binding IncomeListing}"
+                               ListTotal="{Binding IncomeTotal}" />
+            <Label Text="{Binding NetCashFlow}" FontSize="18" FontAttributes="Bold" TextColor="Black"
+                   HorizontalTextAlignment="Center" />
+        </StackLayout>
+      
+    </ScrollView>
+
+</ContentPage>
