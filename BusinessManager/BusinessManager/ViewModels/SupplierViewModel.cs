@@ -12,23 +12,10 @@ namespace BusinessManager.ViewModels
     {
         public ObservableRangeCollection<Supplier> Suppliers { get; set; }
 
-        private Supplier _currentSupplier;
-        public Supplier CurrentSupplier
-        {
-            get
-            {
-                return _currentSupplier;        
-            }
-            set
-            {
-                ProcPropertyChanged(ref _currentSupplier, value);
-            }
-        }
-
         #region Command Definitions
 
         public Command GetSuppliersCommand { get; set; }
-        public Command SaveSupplierCommand { get; set; }
+        public Command ShowAddSupplierViewCommand { get; set; }
 
         #endregion
 
@@ -37,11 +24,8 @@ namespace BusinessManager.ViewModels
             // This becomes the observable collection of suppliers 
             Suppliers = new ObservableRangeCollection<Supplier>();
 
-            // create a new supplier 
-            CurrentSupplier = new Supplier();
-
-            // this is the command to save a new supplier
-            SaveSupplierCommand = new Command(async () => await SaveSupplier());
+            // this is the command to show the add/edit supplier screen
+            ShowAddSupplierViewCommand = new Command(async () => await SimpleIoc.NavigationService.PushAsync(new AddSupplierViewModel()));
 
             // establish the command to get the list of suppliers 
             GetSuppliersCommand = new Command(async () => await GetSuppliers(),() => !IsBusy);
@@ -81,39 +65,6 @@ namespace BusinessManager.ViewModels
             finally
             {
                 IsBusy = false;
-            }
-        }
-
-        async Task SaveSupplier()
-        {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                if (CurrentSupplier != null)
-                {
-                    // Save the supplier 
-                    var service = new AzureService<Supplier>();
-                    await service.SaveItem(CurrentSupplier);
-
-                    // Just tell the user the save has been accomplished
-                    SimpleIoc.SimpleIoc.DisplayAlert(this, "Save Confirmation", "The supplier record has been saved", "OK", "");
-
-                    // Close the screen
-                    await SimpleIoc.NavigationService.PopAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                SimpleIoc.SimpleIoc.DisplayErrorMessage(this, ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-                GetSuppliersCommand.Execute(null);
             }
         }
 

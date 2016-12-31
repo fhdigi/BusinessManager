@@ -53,6 +53,7 @@
     <Compile Include="PageModels\BudgetListingPageModel.cs" />
     <Compile Include="PageModels\ClientPageModel.cs" />
     <Compile Include="Services\ObservableRangeCollection.cs" />
+    <Compile Include="ViewModels\AddSupplierViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="PageModels\MoneyPageModel.cs" />
     <Compile Include="PageModels\ProjectPageModel.cs" />
@@ -71,6 +72,9 @@
     </Compile>
     <Compile Include="Pages\ClientPage.xaml.cs">
       <DependentUpon>ClientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddSupplierView.xaml.cs">
+      <DependentUpon>AddSupplierView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPageView.xaml.cs">
       <DependentUpon>MainPageView.xaml</DependentUpon>
@@ -212,6 +216,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\ProjectPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AddSupplierView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -18,6 +18,7 @@ namespace BusinessManager
         {
             SimpleIoc.SimpleIoc.RegisterPage<MainPageViewModel, MainPageView>();
             SimpleIoc.SimpleIoc.RegisterPage<SupplierViewModel, SupplierView>();
+            SimpleIoc.SimpleIoc.RegisterPage<AddSupplierViewModel, AddSupplierView>();
         }
 
         public bool IsBusy { get; set; }

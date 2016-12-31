@@ -4,6 +4,10 @@
              x:Class="BusinessManager.Views.SupplierView"
              Title="Supplier">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding ShowAddSupplierViewCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+  
     <StackLayout Padding="10">
 
       <ListView
@@ -24,10 +28,6 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-      
-        <Label Text="Supplier Name"></Label>
-        <Entry Text="{Binding CurrentSupplier.SupplierName}"></Entry>
-        <Button Text="Save Supplier" Command="{Binding SaveSupplierCommand}"></Button>
       
     </StackLayout>
   
