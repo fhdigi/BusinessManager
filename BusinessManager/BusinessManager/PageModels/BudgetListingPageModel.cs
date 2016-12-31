@@ -2,14 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using BusinessManager.Models;
-using FreshMvvm;
-using PropertyChanged;
+using BusinessManager.ViewModels;
 using Syncfusion.Data.Extensions;
 
 namespace BusinessManager.PageModels
 {
-    [ImplementPropertyChanged]
-    public class BudgetListingPageModel : FreshBasePageModel
+    public class BudgetListingPageModel : BaseViewModel
     {
         private ObservableCollection<Budget> BudgetInformation { get; set; }
         public ObservableCollection<Budget> AssetListing { get; set; }

@@ -1,13 +1,10 @@
-﻿using AppServiceHelpers.Models;
-using Newtonsoft.Json;
-using PropertyChanged;
+﻿using Newtonsoft.Json;
 
 namespace BusinessManager.Models
 {
-    [ImplementPropertyChanged]
-    public class Supplier : EntityData
+    public class Supplier
     {
-        //public string Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty(PropertyName = "SupplierName")]
         public string SupplierName { get; set; }

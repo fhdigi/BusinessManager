@@ -1,8 +1,5 @@
-﻿using PropertyChanged;
-
-namespace BusinessManager.Models
+﻿namespace BusinessManager.Models
 {
-    [ImplementPropertyChanged]
     public class Budget
     {
         public enum BudgetClassification

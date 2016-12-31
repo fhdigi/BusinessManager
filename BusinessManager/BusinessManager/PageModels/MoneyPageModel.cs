@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FreshMvvm;
+﻿using BusinessManager.ViewModels;
 
 namespace BusinessManager.PageModels
 {
-    public class MoneyPageModel : FreshBasePageModel
+    public class MoneyPageModel : BaseViewModel
     {
     }
 }

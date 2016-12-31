@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace BusinessManager.Pages
 {
-    public partial class SupplierPage : ContentPage
+    public partial class SupplierView : ContentPage
     {
-        public SupplierPage()
+        public SupplierView()
         {
             InitializeComponent();
         }

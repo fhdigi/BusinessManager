@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AppServiceHelpers;
 using BusinessManager.Models;
+using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
 namespace BusinessManager.PageModels
@@ -54,12 +54,12 @@ namespace BusinessManager.PageModels
                 };
 
                 // Save the supplier 
-                var client = EasyMobileServiceClient.Current;
-                await client.Table<Project>().AddAsync(newProject);
+                //var client = EasyMobileServiceClient.Current;
+                //await client.Table<Project>().AddAsync(newProject);
             }
             catch (Exception ex)
             {
-                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
+                //await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

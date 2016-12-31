@@ -1,10 +1,9 @@
 ﻿using System;
-using AppServiceHelpers.Models;
 using Newtonsoft.Json;
 
 namespace BusinessManager.Models
 {
-    public class Ledger : EntityData
+    public class Ledger 
     {
         //public string Id { get; set; }
 

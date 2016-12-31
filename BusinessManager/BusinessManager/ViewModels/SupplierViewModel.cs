@@ -1,20 +1,17 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using AppServiceHelpers;
-using AppServiceHelpers.Helpers;
 using BusinessManager.Models;
 using BusinessManager.Services;
-using FreshMvvm;
-using PropertyChanged;
+using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
-namespace BusinessManager.PageModels
+namespace BusinessManager.ViewModels
 {
-    public class SupplierPageModel : BaseViewModel
+    public class SupplierViewModel : BaseViewModel
     {
-        private ConnectedObservableCollection<Supplier> _suppliers;
-        public ConnectedObservableCollection<Supplier> Suppliers
+        private ObservableCollection<Supplier> _suppliers;
+        public ObservableCollection<Supplier> Suppliers
         {
             get
             {
@@ -23,7 +20,7 @@ namespace BusinessManager.PageModels
             set
             {
                 _suppliers = value;
-                OnPropertyChanged();
+                ProcPropertyChanged(ref _suppliers, value);
             } 
         }
 
@@ -37,11 +34,13 @@ namespace BusinessManager.PageModels
             set
             {
                 _currentSupplier = value;
-                OnPropertyChanged();
+                ProcPropertyChanged(ref _currentSupplier, value);
             }
         }
 
         #region Command Definitions
+
+        public Command GetSuppliersCommand { get; set; }
 
         private Command _saveSupplierCommand;
 
@@ -54,31 +53,25 @@ namespace BusinessManager.PageModels
             }
         }
 
-        Command _refreshCommand;
-
-        public Command RefreshCommand
-        {
-            get
-            {
-                return _refreshCommand ?? (_refreshCommand = new Command(async () => await ExecuteRefreshCommand()));
-            }
-        }
-
         #endregion
 
-        public SupplierPageModel()
+        public SupplierViewModel()
         {
-            var client = EasyMobileServiceClient.Current;
-            Suppliers = new ConnectedObservableCollection<Supplier>(client.Table<Supplier>());
+            // This becomes the observable collection of suppliers 
+            Suppliers = new ObservableCollection<Supplier>();
 
+            // create a new supplier 
             CurrentSupplier = new Supplier();
 
-            ExecuteRefreshCommand();
+            // establish the command to get the list of suppliers 
+            GetSuppliersCommand = new Command(async () => await GetSuppliers(),() => !IsBusy);
+
+            GetSuppliers();
         }
 
         #region Command Methods
 
-        async Task ExecuteRefreshCommand()
+        async Task GetSuppliers()
         {
             if (IsBusy)
                 return;
@@ -87,11 +80,16 @@ namespace BusinessManager.PageModels
 
             try
             {
-                await Suppliers.Refresh();
+                var service = new AzureService<Supplier>();
+                var items = await service.GetItems();
+
+                Suppliers.Clear();
+                foreach (var item in items)
+                    Suppliers.Add(item);
             }
             catch (Exception ex)
             {
-                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
+                //await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {
@@ -111,16 +109,16 @@ namespace BusinessManager.PageModels
                 if (CurrentSupplier != null)
                 {
                     // Save the supplier 
-                    var client = EasyMobileServiceClient.Current;
-                    await client.Table<Supplier>().AddAsync(CurrentSupplier);
+                    //var client = EasyMobileServiceClient.Current;
+                    //await client.Table<Supplier>().AddAsync(CurrentSupplier);
 
                     // close the screen 
-                    await CoreMethods.PopPageModel();
+                    //await CoreMethods.PopPageModel();
                 }
             }
             catch (Exception ex)
             {
-                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
+                //await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

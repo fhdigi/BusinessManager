@@ -1,7 +1,7 @@
-﻿using AppServiceHelpers;
-using BusinessManager.Models;
-using BusinessManager.PageModels;
-using FreshMvvm;
+﻿using BusinessManager.PageModels;
+using BusinessManager.Pages;
+using BusinessManager.SimpleIoc;
+using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
 namespace BusinessManager
@@ -10,18 +10,14 @@ namespace BusinessManager
     {
         public App()
         {
-            // Set the load the app helpers 
-            EasyMobileServiceClient.Current.Initialize("http://lccsexpense.azurewebsites.net/");
-            EasyMobileServiceClient.Current.RegisterTable<Supplier>();
-            EasyMobileServiceClient.Current.RegisterTable<Ledger>();
-            EasyMobileServiceClient.Current.RegisterTable<Client>();
-            EasyMobileServiceClient.Current.RegisterTable<Project>();
-            EasyMobileServiceClient.Current.FinalizeSchema();
+            RegisterPages();
+            NavigationService.SetRoot(new MainPageModel());
+        }
 
-            // Navigation plumbing using FreshMvvm
-            var page = FreshPageModelResolver.ResolvePageModel<MainPageModel>();
-            var basicNavContainer = new FreshNavigationContainer(page);
-            MainPage = basicNavContainer;
+        void RegisterPages()
+        {
+            SimpleIoc.SimpleIoc.RegisterPage<MainPageModel, MainPage>();
+            SimpleIoc.SimpleIoc.RegisterPage<SupplierViewModel, SupplierView>();
         }
 
         public bool IsBusy { get; set; }

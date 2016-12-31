@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using AppServiceHelpers;
-using AppServiceHelpers.Helpers;
 using BusinessManager.Models;
+using BusinessManager.Services;
+using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
 namespace BusinessManager.PageModels
@@ -19,12 +20,12 @@ namespace BusinessManager.PageModels
             set
             {
                 _currentClient = value;
-                OnPropertyChanged();
+                ProcPropertyChanged(ref _currentClient, value);
             }
         }
 
-        private ConnectedObservableCollection<Client> _clients;
-        public ConnectedObservableCollection<Client> Clients
+        private ObservableCollection<Client> _clients;
+        public ObservableCollection<Client> Clients
         {
             get
             {
@@ -33,7 +34,7 @@ namespace BusinessManager.PageModels
             set
             {
                 _clients = value;
-                OnPropertyChanged();
+                ProcPropertyChanged(ref _clients, value);
             }
         }
 
@@ -62,11 +63,10 @@ namespace BusinessManager.PageModels
 
         #endregion
 
-
         public ClientPageModel()
         {
-            var client = EasyMobileServiceClient.Current;
-            Clients = new ConnectedObservableCollection<Client>(client.Table<Client>());
+            //var client = EasyMobileServiceClient.Current;
+            //Clients = new ObservableCollection<Client>(client.Table<Client>());
 
             CurrentClient = new Client();
 
@@ -82,11 +82,12 @@ namespace BusinessManager.PageModels
 
             try
             {
-                await Clients.Refresh();
+                //var service = DependencyService.Get<AzureService>();
+                //await Clients.Refresh();
             }
             catch (Exception ex)
             {
-                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
+                //await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {
@@ -106,16 +107,16 @@ namespace BusinessManager.PageModels
                 if (CurrentClient != null)
                 {
                     // Save the supplier 
-                    var client = EasyMobileServiceClient.Current;
-                    await client.Table<Client>().AddAsync(CurrentClient);
+                    //var client = EasyMobileServiceClient.Current;
+                    //await client.Table<Client>().AddAsync(CurrentClient);
 
                     // close the screen 
-                    await CoreMethods.PopPageModel();
+                    // await CoreMethods.PopPageModel();
                 }
             }
             catch (Exception ex)
             {
-                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
+                // await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

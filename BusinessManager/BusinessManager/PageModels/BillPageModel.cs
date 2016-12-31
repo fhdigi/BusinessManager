@@ -1,18 +1,16 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using AppServiceHelpers.Helpers;
 using BusinessManager.Models;
-using FreshMvvm;
-using PropertyChanged;
+using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
 namespace BusinessManager.PageModels
 {
-    [ImplementPropertyChanged]
-    public class BillPageModel : FreshBasePageModel
+   public class BillPageModel : BaseViewModel
     {
-        public ConnectedObservableCollection<Supplier> Suppliers { get; set; }
+        public ObservableCollection<Supplier> Suppliers { get; set; }
         public Supplier SelectedSupplier { get; set; }
         public bool IsBusy { get; set; }
         public DateTime TransactionDate { get; set; }
@@ -33,8 +31,8 @@ namespace BusinessManager.PageModels
             Amount = 0.0;
 
             // We are going to need Suppliers and Ledgers 
-            var client = AppServiceHelpers.EasyMobileServiceClient.Current;
-            Suppliers = new ConnectedObservableCollection<Supplier>(client.Table<Supplier>());
+            //var client = AppServiceHelpers.EasyMobileServiceClient.Current;
+            //Suppliers = new ConnectedObservableCollection<Supplier>(client.Table<Supplier>());
 
             // This will fill in the supplier dropdown 
             Task.Run(async () => { await ExecuteRefreshCommand(); }).Wait();
@@ -55,8 +53,8 @@ namespace BusinessManager.PageModels
                 };
 
                 // Save the item
-                var client = AppServiceHelpers.EasyMobileServiceClient.Current;
-                Task.Run(async () => { await client.Table<Ledger>().AddAsync(ledgerItem); }).Wait();
+                //var client = AppServiceHelpers.EasyMobileServiceClient.Current;
+                //Task.Run(async () => { await client.Table<Ledger>().AddAsync(ledgerItem); }).Wait();
             }
         }
 
@@ -69,11 +67,11 @@ namespace BusinessManager.PageModels
 
             try
             {
-                await Suppliers.Refresh();
+                //await Suppliers.Refresh();
             }
             catch (Exception ex)
             {
-                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
+                //await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

@@ -1,19 +1,18 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using AppServiceHelpers;
-using AppServiceHelpers.Helpers;
 using BusinessManager.Models;
-using FreshMvvm;
-using PropertyChanged;
+using BusinessManager.Services;
+using BusinessManager.SimpleIoc;
+using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
 namespace BusinessManager.PageModels
 {
-    [ImplementPropertyChanged]
-    public class MainPageModel : FreshBasePageModel
+    public class MainPageModel : BaseViewModel
     {
-        public static ConnectedObservableCollection<Supplier> Suppliers { get; set; }
+        public static ObservableCollection<Supplier> Suppliers { get; set; }
 
         public bool IsBusy { get; set; }
         public string InitMessage { get; set; }
@@ -21,7 +20,6 @@ namespace BusinessManager.PageModels
         public ICommand ShowEnterNewBillPageCommand { get; set; }
         public ICommand ShowSuppliersPageCommand { get; set; }
         public ICommand ShowEnterNewClientPageCommand { get; set; }
-
         public ICommand ShowProjectsPageCommand { get; set; }
 
         public MainPageModel()
@@ -32,34 +30,32 @@ namespace BusinessManager.PageModels
             ShowEnterNewClientPageCommand = new Command(ShowEnterNewClientPage);
             ShowProjectsPageCommand = new Command(ShowProjectsPage);
 
-            var client = EasyMobileServiceClient.Current;
-            Suppliers = new ConnectedObservableCollection<Supplier>(client.Table<Supplier>());
             ExecuteRefreshCommand();
         }
 
         private void ShowProjectsPage()
         {
-            CoreMethods.PushPageModel<ProjectPageModel>();
+            //CoreMethods.PushPageModel<ProjectPageModel>();
         }
 
         private void ShowEnterNewClientPage()
         {
-            CoreMethods.PushPageModel<ClientPageModel>();
+            //CoreMethods.PushPageModel<ClientPageModel>();
         }
 
-        private void ShowSuppliersPage()
+        private async void ShowSuppliersPage()
         {
-            CoreMethods.PushPageModel<SupplierPageModel>();
+            await NavigationService.PushAsync(new SupplierViewModel());
         }
 
         private void EnterNewBillPage()
         {
-            CoreMethods.PushPageModel<BillPageModel>();
+            //CoreMethods.PushPageModel<BillPageModel>();
         }
 
         private void ShowBudgetListing()
         {
-            CoreMethods.PushPageModel<BudgetListingPageModel>();
+            //CoreMethods.PushPageModel<BudgetListingPageModel>();
         }
 
         async Task ExecuteRefreshCommand()
@@ -71,7 +67,8 @@ namespace BusinessManager.PageModels
 
             try
             {
-                await MainPageModel.Suppliers.Refresh();
+                var service = new AzureService<Supplier>();
+                await service.GetItems();
             }
             catch (Exception ex)
             {

@@ -1,11 +1,9 @@
-﻿using AppServiceHelpers.Models;
-using Newtonsoft.Json;
-using PropertyChanged;
+﻿using Newtonsoft.Json;
+
 
 namespace BusinessManager.Models
 {
-    [ImplementPropertyChanged]
-    public class Project : EntityData
+    public class Project 
     {
         [JsonProperty(PropertyName = "ProjectName")]
         public string ProjectName { get; set; }
