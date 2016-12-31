@@ -9,7 +9,7 @@ namespace BusinessManager.ViewModels
         /// <summary>
         /// Gets or sets a value indicating whether this instance is busy.
         /// </summary>
-        /// <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
+        /// <value>true if this instance is busy; otherwise, false.</value>
         public bool IsBusy
         {
             get { return _isBusy; }
@@ -25,7 +25,7 @@ namespace BusinessManager.ViewModels
         /// <summary>
         /// Gets or sets a value indicating whether this instance is not busy.
         /// </summary>
-        /// <value><c>true</c> if this instance is not busy; otherwise, <c>false</c>.</value>
+        /// <value>true if this instance is busy; otherwise, false.</value>
         public bool IsNotBusy
         {
             get { return isNotBusy; }

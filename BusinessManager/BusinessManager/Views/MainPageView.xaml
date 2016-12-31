@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BusinessManager.Pages.MainPage">
+             x:Class="BusinessManager.Views.MainPageView">
 
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <Label Text="{Binding InitMessage}" TextColor="Red" />
@@ -22,7 +22,7 @@
 
         <StackLayout Orientation="Horizontal">
             <Button Text="Enter New Bill" Command="{Binding ShowEnterNewBillPageCommand}" />
-            <Button Text="Suppliers" Command="{Binding ShowSuppliersPageCommand}" />
+            <Button Text="Suppliers" Command="{Binding ShowSuppliersViewCommand}" />
         </StackLayout>
 
         <Button Text="Budget Listing" Command="{Binding ShowBudgetListingPageCommand}" />

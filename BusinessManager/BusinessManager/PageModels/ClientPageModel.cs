@@ -19,7 +19,6 @@ namespace BusinessManager.PageModels
             }
             set
             {
-                _currentClient = value;
                 ProcPropertyChanged(ref _currentClient, value);
             }
         }
@@ -33,7 +32,6 @@ namespace BusinessManager.PageModels
             }
             set
             {
-                _clients = value;
                 ProcPropertyChanged(ref _clients, value);
             }
         }

@@ -1,8 +1,8 @@
-﻿using BusinessManager.PageModels;
-using BusinessManager.Pages;
-using BusinessManager.SimpleIoc;
+﻿using BusinessManager.SimpleIoc;
 using BusinessManager.ViewModels;
+using BusinessManager.Views;
 using Xamarin.Forms;
+using MainPageView = BusinessManager.Views.MainPageView;
 
 namespace BusinessManager
 {
@@ -11,12 +11,12 @@ namespace BusinessManager
         public App()
         {
             RegisterPages();
-            NavigationService.SetRoot(new MainPageModel());
+            NavigationService.SetRoot(new MainPageViewModel());
         }
 
         void RegisterPages()
         {
-            SimpleIoc.SimpleIoc.RegisterPage<MainPageModel, MainPage>();
+            SimpleIoc.SimpleIoc.RegisterPage<MainPageViewModel, MainPageView>();
             SimpleIoc.SimpleIoc.RegisterPage<SupplierViewModel, SupplierView>();
         }
 

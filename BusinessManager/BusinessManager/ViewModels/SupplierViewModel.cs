@@ -19,7 +19,6 @@ namespace BusinessManager.ViewModels
             }
             set
             {
-                _suppliers = value;
                 ProcPropertyChanged(ref _suppliers, value);
             } 
         }
@@ -33,7 +32,6 @@ namespace BusinessManager.ViewModels
             }
             set
             {
-                _currentSupplier = value;
                 ProcPropertyChanged(ref _currentSupplier, value);
             }
         }

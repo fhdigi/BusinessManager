@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace BusinessManager.Pages
+namespace BusinessManager.Views
 {
     public partial class SupplierView : ContentPage
     {

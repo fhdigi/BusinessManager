@@ -5,30 +5,35 @@ using System.Windows.Input;
 using BusinessManager.Models;
 using BusinessManager.Services;
 using BusinessManager.SimpleIoc;
-using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
-namespace BusinessManager.PageModels
+namespace BusinessManager.ViewModels
 {
-    public class MainPageModel : BaseViewModel
+    public class MainPageViewModel : BaseViewModel
     {
+        private string _initMessage = "";
         public static ObservableCollection<Supplier> Suppliers { get; set; }
 
-        public bool IsBusy { get; set; }
-        public string InitMessage { get; set; }
+        public string InitMessage
+        {
+            get { return _initMessage; }
+            set { ProcPropertyChanged(ref _initMessage, value); }
+        }
+
+        public Command ShowSuppliersViewCommand { get; set; }
         public ICommand ShowBudgetListingPageCommand { get; set; }
         public ICommand ShowEnterNewBillPageCommand { get; set; }
-        public ICommand ShowSuppliersPageCommand { get; set; }
         public ICommand ShowEnterNewClientPageCommand { get; set; }
         public ICommand ShowProjectsPageCommand { get; set; }
 
-        public MainPageModel()
+        public MainPageViewModel()
         {
             ShowBudgetListingPageCommand = new Command(ShowBudgetListing);
             ShowEnterNewBillPageCommand = new Command(EnterNewBillPage);
-            ShowSuppliersPageCommand = new Command(ShowSuppliersPage);
             ShowEnterNewClientPageCommand = new Command(ShowEnterNewClientPage);
             ShowProjectsPageCommand = new Command(ShowProjectsPage);
+
+            ShowSuppliersViewCommand = new Command(async () => await NavigationService.PushAsync(new SupplierViewModel()));
 
             ExecuteRefreshCommand();
         }
@@ -41,11 +46,6 @@ namespace BusinessManager.PageModels
         private void ShowEnterNewClientPage()
         {
             //CoreMethods.PushPageModel<ClientPageModel>();
-        }
-
-        private async void ShowSuppliersPage()
-        {
-            await NavigationService.PushAsync(new SupplierViewModel());
         }
 
         private void EnterNewBillPage()
