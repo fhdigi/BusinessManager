@@ -49,6 +49,23 @@ namespace BusinessManager.SimpleIoc
             return GetObject<Page>(type, singleton);
         }
 
+        public static void DisplayAlert(BaseViewModel model, string title, string message, string accept, string cancel)
+        {
+            if (string.IsNullOrEmpty(cancel))
+            {
+                GetPage(model).DisplayAlert(title, message, accept);
+            }
+            else
+            {
+                GetPage(model).DisplayAlert(title, message, accept, cancel);
+            }
+        }
+
+        public static void DisplayErrorMessage(BaseViewModel model, string message)
+        {
+            GetPage(model).DisplayAlert("Error", message, "OK");
+        }
+
         public static T GetObject<T>(bool singleton = true)
         {
             return GetObject<T, T>(singleton);

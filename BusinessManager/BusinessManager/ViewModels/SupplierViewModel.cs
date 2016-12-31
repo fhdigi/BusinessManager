@@ -3,25 +3,14 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using BusinessManager.Models;
 using BusinessManager.Services;
-using BusinessManager.ViewModels;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace BusinessManager.ViewModels
 {
     public class SupplierViewModel : BaseViewModel
     {
-        private ObservableCollection<Supplier> _suppliers;
-        public ObservableCollection<Supplier> Suppliers
-        {
-            get
-            {
-                return _suppliers;
-            }
-            set
-            {
-                ProcPropertyChanged(ref _suppliers, value);
-            } 
-        }
+        public ObservableRangeCollection<Supplier> Suppliers { get; set; }
 
         private Supplier _currentSupplier;
         public Supplier CurrentSupplier
@@ -39,55 +28,55 @@ namespace BusinessManager.ViewModels
         #region Command Definitions
 
         public Command GetSuppliersCommand { get; set; }
-
-        private Command _saveSupplierCommand;
-
-        public Command SaveSupplierCommand
-        {
-            get
-            {
-                return _saveSupplierCommand ??
-                       (_saveSupplierCommand = new Command(async () => await ExecuteSaveSupplierCommand()));
-            }
-        }
+        public Command SaveSupplierCommand { get; set; }
 
         #endregion
 
         public SupplierViewModel()
         {
             // This becomes the observable collection of suppliers 
-            Suppliers = new ObservableCollection<Supplier>();
+            Suppliers = new ObservableRangeCollection<Supplier>();
 
             // create a new supplier 
             CurrentSupplier = new Supplier();
 
+            // this is the command to save a new supplier
+            SaveSupplierCommand = new Command(async () => await SaveSupplier());
+
             // establish the command to get the list of suppliers 
             GetSuppliersCommand = new Command(async () => await GetSuppliers(),() => !IsBusy);
 
-            GetSuppliers();
+            // Get the list
+            GetSuppliersCommand.Execute(null);
         }
 
-        #region Command Methods
+        #region Methods
 
         async Task GetSuppliers()
         {
-            if (IsBusy)
-                return;
+            // if the process is already running, get out 
+            if (IsBusy)  return;
 
+            // now set the flag to busy 
             IsBusy = true;
 
             try
             {
+                // clear the current colleciton 
+                Suppliers.Clear();
+
+                // connect to the service 
                 var service = new AzureService<Supplier>();
+
+                // retrieve the items 
                 var items = await service.GetItems();
 
-                Suppliers.Clear();
-                foreach (var item in items)
-                    Suppliers.Add(item);
+                // add it to the collection and display
+                Suppliers.AddRange(items.OrderBy(x => x.SupplierName));
             }
             catch (Exception ex)
             {
-                //await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
+                SimpleIoc.SimpleIoc.DisplayErrorMessage(this, ex.Message);
             }
             finally
             {
@@ -95,7 +84,7 @@ namespace BusinessManager.ViewModels
             }
         }
 
-        async Task ExecuteSaveSupplierCommand()
+        async Task SaveSupplier()
         {
             if (IsBusy)
                 return;
@@ -107,20 +96,24 @@ namespace BusinessManager.ViewModels
                 if (CurrentSupplier != null)
                 {
                     // Save the supplier 
-                    //var client = EasyMobileServiceClient.Current;
-                    //await client.Table<Supplier>().AddAsync(CurrentSupplier);
+                    var service = new AzureService<Supplier>();
+                    await service.SaveItem(CurrentSupplier);
 
-                    // close the screen 
-                    //await CoreMethods.PopPageModel();
+                    // Just tell the user the save has been accomplished
+                    SimpleIoc.SimpleIoc.DisplayAlert(this, "Save Confirmation", "The supplier record has been saved", "OK", "");
+
+                    // Close the screen
+                    await SimpleIoc.NavigationService.PopAsync();
                 }
             }
             catch (Exception ex)
             {
-                //await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
+                SimpleIoc.SimpleIoc.DisplayErrorMessage(this, ex.Message);
             }
             finally
             {
                 IsBusy = false;
+                GetSuppliersCommand.Execute(null);
             }
         }
 

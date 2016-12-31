@@ -46,6 +46,14 @@ namespace BusinessManager.Services
             return await _table.ToEnumerableAsync();
         }
 
+        public async Task<bool> SaveItem(T item)
+        {
+            await Initialize();
+            //await SyncItems();
+            await _table.InsertAsync(item);
+            return true;
+        }
+
         public async Task SyncItems()
         {
             try

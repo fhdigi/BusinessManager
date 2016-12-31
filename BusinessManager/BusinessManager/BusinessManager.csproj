@@ -52,6 +52,7 @@
     <Compile Include="PageModels\BillPageModel.cs" />
     <Compile Include="PageModels\BudgetListingPageModel.cs" />
     <Compile Include="PageModels\ClientPageModel.cs" />
+    <Compile Include="Services\ObservableRangeCollection.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="PageModels\MoneyPageModel.cs" />
     <Compile Include="PageModels\ProjectPageModel.cs" />

@@ -17,6 +17,7 @@ namespace BusinessManager.Models
         {
             return PropertyChanged.SetProperty(this, ref currentValue, newValue, propertyName);
         }
+
         internal void ProcPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
