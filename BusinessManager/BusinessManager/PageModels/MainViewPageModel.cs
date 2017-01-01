@@ -64,8 +64,7 @@ namespace BusinessManager.PageModels
 
             try
             {
-                var service = new AzureService<Supplier>();
-                await service.GetItems();
+                await App.SupplierService.GetItems();
             }
             catch (Exception ex)
             {

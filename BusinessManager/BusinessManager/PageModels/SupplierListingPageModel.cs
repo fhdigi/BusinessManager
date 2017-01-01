@@ -24,6 +24,7 @@ namespace BusinessManager.PageModels
             {
                 _selectedSupplier = value;
                 ShowEditSupplierViewCommand.Execute(null);
+                _selectedSupplier = null;
             }
         }
 
@@ -51,6 +52,14 @@ namespace BusinessManager.PageModels
             GetSuppliersCommand.Execute(null);
         }
 
+        public override void ReverseInit(object returnedData)
+        {
+            if (returnedData != null)
+            {
+                GetSuppliersCommand.Execute(null);
+            }
+        }
+
         #region Methods
 
         async Task GetSuppliers()
@@ -66,11 +75,8 @@ namespace BusinessManager.PageModels
                 // clear the current colleciton 
                 Suppliers.Clear();
 
-                // connect to the service 
-                var service = new AzureService<Supplier>();
-
                 // retrieve the items 
-                var items = await service.GetItems();
+                var items = await App.SupplierService.GetItems();
 
                 // add it to the collection and display
                 Suppliers.AddRange(items.OrderBy(x => x.SupplierName));

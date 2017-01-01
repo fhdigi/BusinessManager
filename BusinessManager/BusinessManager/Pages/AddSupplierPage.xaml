@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BusinessManager.Pages.AddSupplierPage">
+             x:Class="BusinessManager.Pages.AddSupplierPage"
+             Title="Supplier">
 
-    <StackLayout VerticalOptions="Center">
+    <StackLayout VerticalOptions="Center" Padding="15">
 
-        <Label Text="Supplier Name"></Label>
+        <Label Text="Supplier Name" FontAttributes="Bold"></Label>
         <Entry Text="{Binding CurrentSupplier.SupplierName, Mode=TwoWay}"></Entry>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
             <Button Text="Save Supplier" Command="{Binding SaveSupplierCommand}" />
             <Button Text="Cancel" Command="{Binding CancelCommand}" />
+            <Button Text="Delete" BackgroundColor="Red" TextColor="White" />
         </StackLayout>
 
     </StackLayout>

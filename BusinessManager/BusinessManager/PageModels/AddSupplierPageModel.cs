@@ -30,7 +30,7 @@ namespace BusinessManager.PageModels
             SaveSupplierCommand = new Command(async () => await SaveSupplier());
 
             // this gets us out 
-            CancelCommand = new Command(async() => await CoreMethods.PopPageModel());
+            CancelCommand = new Command(async() => await CoreMethods.PopPageModel(null));
         }
 
         public override void Init(object initData)
@@ -60,24 +60,21 @@ namespace BusinessManager.PageModels
             {
                 if (CurrentSupplier != null)
                 {
-                    // Save the supplier 
-                    var service = new AzureService<Supplier>();
-
                     if (EditMode == false)
                     {
-                        await service.SaveItem(CurrentSupplier);
+                        await App.SupplierService.SaveItem(CurrentSupplier);
 
                         // Just tell the user the save has been accomplished
                         await CoreMethods.DisplayAlert("Save Confirmation", "The supplier record has been saved",
-                            "OK", "");
+                            "OK");
                     }
                     else
                     {
-                        await service.UpdateItem(CurrentSupplier);
+                        await App.SupplierService.UpdateItem(CurrentSupplier);
 
                         // Just tell the user the save has been accomplished
                         await CoreMethods.DisplayAlert("Update Confirmation", "The supplier record has been updated",
-                            "OK", "");
+                            "OK");
                     }
                 }
             }
@@ -90,7 +87,7 @@ namespace BusinessManager.PageModels
                 IsBusy = false;
 
                 // Close the screen
-                await CoreMethods.PopPageModel();
+                await CoreMethods.PopPageModel(CurrentSupplier);
             }
         }
 
