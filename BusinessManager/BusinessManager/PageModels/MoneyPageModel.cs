@@ -1,8 +1,6 @@
-﻿using BusinessManager.ViewModels;
-
-namespace BusinessManager.PageModels
+﻿namespace BusinessManager.PageModels
 {
-    public class MoneyPageModel : BaseViewModel
+    public class MoneyPageModel
     {
     }
 }

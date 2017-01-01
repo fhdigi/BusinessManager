@@ -71,7 +71,7 @@ namespace BusinessManager.Services
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Unable to sync speakers, that is alright as we have offline capabilities: " + ex);
+                Debug.WriteLine("Unable to sync: " + ex);
             }
         }
     }

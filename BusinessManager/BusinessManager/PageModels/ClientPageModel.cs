@@ -3,38 +3,15 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using BusinessManager.Models;
 using BusinessManager.Services;
-using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
 namespace BusinessManager.PageModels
 {
-    public class ClientPageModel : BaseViewModel
+    public class ClientPageModel
     {
-        private Client _currentClient;
-        public Client CurrentClient
-        {
-            get
-            {
-                return _currentClient;
-            }
-            set
-            {
-                ProcPropertyChanged(ref _currentClient, value);
-            }
-        }
-
-        private ObservableCollection<Client> _clients;
-        public ObservableCollection<Client> Clients
-        {
-            get
-            {
-                return _clients;
-            }
-            set
-            {
-                ProcPropertyChanged(ref _clients, value);
-            }
-        }
+        public bool IsBusy { get; set; }
+        public Client CurrentClient { get; set; }
+        public ObservableCollection<Client> Clients { get; set; }
 
         #region Commands
 

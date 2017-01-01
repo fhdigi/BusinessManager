@@ -2,12 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using BusinessManager.Models;
-using BusinessManager.ViewModels;
 using Syncfusion.Data.Extensions;
 
 namespace BusinessManager.PageModels
 {
-    public class BudgetListingPageModel : BaseViewModel
+    public class BudgetListingPageModel
     {
         private ObservableCollection<Budget> BudgetInformation { get; set; }
         public ObservableCollection<Budget> AssetListing { get; set; }

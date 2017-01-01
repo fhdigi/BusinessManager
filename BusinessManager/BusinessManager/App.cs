@@ -1,8 +1,6 @@
-﻿using BusinessManager.SimpleIoc;
-using BusinessManager.ViewModels;
-using BusinessManager.Views;
+﻿using BusinessManager.PageModels;
+using FreshMvvm;
 using Xamarin.Forms;
-using MainPageView = BusinessManager.Views.MainPageView;
 
 namespace BusinessManager
 {
@@ -10,15 +8,9 @@ namespace BusinessManager
     {
         public App()
         {
-            RegisterPages();
-            NavigationService.SetRoot(new MainPageViewModel());
-        }
-
-        void RegisterPages()
-        {
-            SimpleIoc.SimpleIoc.RegisterPage<MainPageViewModel, MainPageView>();
-            SimpleIoc.SimpleIoc.RegisterPage<SupplierViewModel, SupplierView>();
-            SimpleIoc.SimpleIoc.RegisterPage<AddSupplierViewModel, AddSupplierView>();
+            var page = FreshPageModelResolver.ResolvePageModel<MainViewPageModel>();
+            var basicNavContainer = new FreshNavigationContainer(page);
+            MainPage = basicNavContainer;
         }
 
         public bool IsBusy { get; set; }

@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BusinessManager.Models;
-using Xamarin.Forms;
 using BusinessManager.Services;
-using BusinessManager.SimpleIoc;
+using PropertyChanged;
+using Xamarin.Forms;
 
-namespace BusinessManager.ViewModels
+namespace BusinessManager.PageModels
 {
-    public class AddSupplierViewModel : BaseViewModel
+    [ImplementPropertyChanged]
+    public class AddSupplierPageModel : BasePageModel
     {
         #region Properties
 
         public bool EditMode;
-
-        private Supplier _currentSupplier;
-
-        public Supplier CurrentSupplier
-        {
-            get { return _currentSupplier; }
-            set { ProcPropertyChanged(ref _currentSupplier, value); }
-        }
+        public Supplier CurrentSupplier { get; set; }
 
         #endregion
 
@@ -30,13 +24,27 @@ namespace BusinessManager.ViewModels
 
         #endregion
 
-        public AddSupplierViewModel()
+        public AddSupplierPageModel()
         {
             // this is the command to save a new supplier
             SaveSupplierCommand = new Command(async () => await SaveSupplier());
 
             // this gets us out 
-            CancelCommand = new Command(async() => await NavigationService.PopModalAsync());
+            CancelCommand = new Command(async() => await CoreMethods.PopPageModel());
+        }
+
+        public override void Init(object initData)
+        {
+            if (initData == null)
+            {
+                EditMode = false;
+                CurrentSupplier = new Supplier();
+            }
+            else
+            {
+                EditMode = true;
+                CurrentSupplier = initData as Supplier;
+            }
         }
 
         #region Methods
@@ -60,7 +68,7 @@ namespace BusinessManager.ViewModels
                         await service.SaveItem(CurrentSupplier);
 
                         // Just tell the user the save has been accomplished
-                        SimpleIoc.SimpleIoc.DisplayAlert(this, "Save Confirmation", "The supplier record has been saved",
+                        await CoreMethods.DisplayAlert("Save Confirmation", "The supplier record has been saved",
                             "OK", "");
                     }
                     else
@@ -68,21 +76,21 @@ namespace BusinessManager.ViewModels
                         await service.UpdateItem(CurrentSupplier);
 
                         // Just tell the user the save has been accomplished
-                        SimpleIoc.SimpleIoc.DisplayAlert(this, "Update Confirmation", "The supplier record has been updated",
+                        await CoreMethods.DisplayAlert("Update Confirmation", "The supplier record has been updated",
                             "OK", "");
                     }
                 }
             }
             catch (Exception ex)
             {
-                SimpleIoc.SimpleIoc.DisplayErrorMessage(this, ex.Message);
+                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {
                 IsBusy = false;
 
                 // Close the screen
-                await NavigationService.PopModalAsync();
+                await CoreMethods.PopPageModel();
             }
         }
 

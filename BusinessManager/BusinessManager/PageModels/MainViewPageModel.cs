@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using BusinessManager.Models;
 using BusinessManager.Services;
-using BusinessManager.SimpleIoc;
+using PropertyChanged;
 using Xamarin.Forms;
 
-namespace BusinessManager.ViewModels
+namespace BusinessManager.PageModels
 {
-    public class MainPageViewModel : BaseViewModel
+    [ImplementPropertyChanged]
+    public class MainViewPageModel : FreshMvvm.FreshBasePageModel
     {
-        private string _initMessage = "";
-        public string InitMessage
-        {
-            get { return _initMessage; }
-            set { ProcPropertyChanged(ref _initMessage, value); }
-        }
+        public string InitMessage { get; set; }
+        public bool IsBusy { get; set; }
 
         public Command ShowSuppliersViewCommand { get; set; }
         public ICommand ShowBudgetListingPageCommand { get; set; }
@@ -25,14 +21,14 @@ namespace BusinessManager.ViewModels
         public ICommand ShowProjectsPageCommand { get; set; }
         public Command RefreshCommand { get; set; }
 
-        public MainPageViewModel()
+        public MainViewPageModel()
         {
             ShowBudgetListingPageCommand = new Command(ShowBudgetListing);
             ShowEnterNewBillPageCommand = new Command(EnterNewBillPage);
             ShowEnterNewClientPageCommand = new Command(ShowEnterNewClientPage);
             ShowProjectsPageCommand = new Command(ShowProjectsPage);
 
-            ShowSuppliersViewCommand = new Command(async () => await NavigationService.PushAsync(new SupplierViewModel()));
+            ShowSuppliersViewCommand = new Command(async () => await CoreMethods.PushPageModel<SupplierListingPageModel>());
 
             // Set the refresh command 
             RefreshCommand = new Command(async () => await ExecuteRefreshCommand());
@@ -73,7 +69,7 @@ namespace BusinessManager.ViewModels
             }
             catch (Exception ex)
             {
-                SimpleIoc.SimpleIoc.DisplayErrorMessage(this, ex.Message);
+                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

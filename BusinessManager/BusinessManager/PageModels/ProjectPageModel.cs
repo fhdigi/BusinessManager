@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BusinessManager.Models;
-using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
 namespace BusinessManager.PageModels
 {
-    public class ProjectPageModel : BaseViewModel
+    public class ProjectPageModel
     {
+        public bool IsBusy { get; set; }
         public string ProjectName { get; set; }
         public string Client { get; set; }
         public string Description { get; set; }

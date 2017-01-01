@@ -1,25 +1,28 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BusinessManager.Models;
 using BusinessManager.Services;
+using PropertyChanged;
 using Xamarin.Forms;
-using System.Linq;
 
-namespace BusinessManager.ViewModels
+namespace BusinessManager.PageModels
 {
-    public class SupplierViewModel : BaseViewModel
+    [ImplementPropertyChanged]
+    public class SupplierListingPageModel : BasePageModel
     {
-        private Supplier _selectedSupplier;
-        private AddSupplierViewModel addSupplierViewModel;
-
         public ObservableRangeCollection<Supplier> Suppliers { get; set; }
+        private Supplier _selectedSupplier;
 
         public Supplier SelectedSupplier
         {
-            get { return _selectedSupplier; }
+            get
+            {
+                return _selectedSupplier;
+            }
             set
             {
-                ProcPropertyChanged(ref _selectedSupplier, value);
+                _selectedSupplier = value;
                 ShowEditSupplierViewCommand.Execute(null);
             }
         }
@@ -32,11 +35,8 @@ namespace BusinessManager.ViewModels
 
         #endregion
 
-        public SupplierViewModel()
+        public SupplierListingPageModel()
         {
-            // we will need this view model later 
-            addSupplierViewModel = new AddSupplierViewModel();
-
             // This becomes the observable collection of suppliers 
             Suppliers = new ObservableRangeCollection<Supplier>();
 
@@ -77,7 +77,7 @@ namespace BusinessManager.ViewModels
             }
             catch (Exception ex)
             {
-                SimpleIoc.SimpleIoc.DisplayErrorMessage(this, ex.Message);
+                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {
@@ -87,19 +87,12 @@ namespace BusinessManager.ViewModels
 
         private async Task AddSupplier()
         {
-            addSupplierViewModel.CurrentSupplier = new Supplier();
-            addSupplierViewModel.EditMode = false;
-            await SimpleIoc.NavigationService.PushModalAsync(addSupplierViewModel);
+            await CoreMethods.PushPageModel<AddSupplierPageModel>(null);
         }
 
         private async Task EditSupplier()
         {
-            if (_selectedSupplier != null)
-            {
-                addSupplierViewModel.CurrentSupplier = _selectedSupplier;
-                addSupplierViewModel.EditMode = true;
-                await SimpleIoc.NavigationService.PushModalAsync(addSupplierViewModel);
-            }
+            await CoreMethods.PushPageModel<AddSupplierPageModel>(_selectedSupplier);
         }
 
         #endregion

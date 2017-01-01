@@ -3,12 +3,11 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using BusinessManager.Models;
-using BusinessManager.ViewModels;
 using Xamarin.Forms;
 
 namespace BusinessManager.PageModels
 {
-   public class BillPageModel : BaseViewModel
+   public class BillPageModel
     {
         public ObservableCollection<Supplier> Suppliers { get; set; }
         public Supplier SelectedSupplier { get; set; }
