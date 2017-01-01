@@ -5,7 +5,7 @@ using BusinessManager.Models;
 
 namespace BusinessManager.PageModels
 {
-    public class BudgetListingPageModel
+    public class BudgetListingPageModel : BasePageModel
     {
         private ObservableCollection<Budget> BudgetInformation { get; set; }
         public ObservableCollection<Budget> AssetListing { get; set; }
@@ -31,17 +31,15 @@ namespace BusinessManager.PageModels
             BudgetInformation = new ObservableCollection<Budget>();
             GenerateBudgetItems();
 
-			/*
             // break into categories 
-			AssetListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Asset).ToObservableCollection();
+			AssetListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Asset).ToList().ToObservableCollection();
             AssetTotal = AssetListing.Sum(x => x.Amount);
 
-            ExpenseListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Expense).ToObservableCollection();
+            ExpenseListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Expense).ToList().ToObservableCollection();
             ExpenseTotal = ExpenseListing.Sum(x => x.Amount);
 
-            IncomeListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Income).ToObservableCollection();
+            IncomeListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Income).ToList().ToObservableCollection();
             IncomeTotal = IncomeListing.Sum(x => x.Amount);
-			*/
         }
 
         private void GenerateBudgetItems()
@@ -55,5 +53,23 @@ namespace BusinessManager.PageModels
             BudgetInformation.Add(new Budget(Budget.BudgetClassification.Expense, "Verizon Wireless", 273.0));
             BudgetInformation.Add(new Budget(Budget.BudgetClassification.Expense, "Amex", 676.64));
         }
+
+
+    }
+
+
+}
+
+public static class LcExtension
+{
+    public static ObservableCollection<T> ToObservableCollection<T>(this IList<T> value) where T : class
+    {
+        if (value == null)
+        {
+            return null;
+        }
+
+        var observableCollection = new ObservableCollection<T>(value);
+        return observableCollection;
     }
 }

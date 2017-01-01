@@ -52,7 +52,7 @@ namespace BusinessManager.PageModels
 
         private void ShowBudgetListing()
         {
-            //CoreMethods.PushPageModel<BudgetListingPageModel>();
+            CoreMethods.PushPageModel<BudgetListingPageModel>();
         }
 
         async Task ExecuteRefreshCommand()
