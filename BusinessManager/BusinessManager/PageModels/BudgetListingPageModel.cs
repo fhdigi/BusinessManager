@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using BusinessManager.Models;
-using Syncfusion.Data.Extensions;
 
 namespace BusinessManager.PageModels
 {
@@ -32,8 +31,9 @@ namespace BusinessManager.PageModels
             BudgetInformation = new ObservableCollection<Budget>();
             GenerateBudgetItems();
 
+			/*
             // break into categories 
-            AssetListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Asset).ToObservableCollection();
+			AssetListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Asset).ToObservableCollection();
             AssetTotal = AssetListing.Sum(x => x.Amount);
 
             ExpenseListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Expense).ToObservableCollection();
@@ -41,6 +41,7 @@ namespace BusinessManager.PageModels
 
             IncomeListing = BudgetInformation.Where(x => x.Classification == Budget.BudgetClassification.Income).ToObservableCollection();
             IncomeTotal = IncomeListing.Sum(x => x.Amount);
+			*/
         }
 
         private void GenerateBudgetItems()

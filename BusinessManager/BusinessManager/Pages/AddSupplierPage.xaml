@@ -9,11 +9,14 @@
         <Label Text="Supplier Name" FontAttributes="Bold"></Label>
         <Entry Text="{Binding CurrentSupplier.SupplierName, Mode=TwoWay}"></Entry>
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-            <Button Text="Save Supplier" Command="{Binding SaveSupplierCommand}" />
-            <Button Text="Cancel" Command="{Binding CancelCommand}" />
-            <Button Text="Delete" BackgroundColor="Red" TextColor="White" Command="{Binding DeleteCommand}" />
-        </StackLayout>
+		<BoxView HeightRequest="1" Color="Green" />
+		<Button Text="Save Supplier" Command="{Binding SaveSupplierCommand}" BackgroundColor="Blue" TextColor="White" />
+
+		<BoxView HeightRequest="1" Color="Green" />
+        <Button Text="Cancel" Command="{Binding CancelCommand}" BackgroundColor="Yellow" TextColor="Black" />
+
+		<BoxView HeightRequest="1" Color="Green" />
+		<Button Text="Delete" BackgroundColor="Red" TextColor="White" Command="{Binding DeleteCommand}" />
 
     </StackLayout>
   
