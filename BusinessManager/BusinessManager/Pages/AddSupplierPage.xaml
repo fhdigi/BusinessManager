@@ -12,7 +12,7 @@
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
             <Button Text="Save Supplier" Command="{Binding SaveSupplierCommand}" />
             <Button Text="Cancel" Command="{Binding CancelCommand}" />
-            <Button Text="Delete" BackgroundColor="Red" TextColor="White" />
+            <Button Text="Delete" BackgroundColor="Red" TextColor="White" Command="{Binding DeleteCommand}" />
         </StackLayout>
 
     </StackLayout>

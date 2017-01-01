@@ -49,7 +49,7 @@ namespace BusinessManager.Services
         public async Task<bool> SaveItem(T item)
         {
             await Initialize();
-            //await SyncItems();
+            await SyncItems();
             await _table.InsertAsync(item);
             return true;
         }
@@ -57,8 +57,16 @@ namespace BusinessManager.Services
         public async Task<bool> UpdateItem(T item)
         {
             await Initialize();
-            //await SyncItems();
+            await SyncItems();
             await _table.UpdateAsync(item);
+            return true;
+        }
+
+        public async Task<bool> DeleteItem(T item)
+        {
+            await Initialize();
+            await SyncItems();
+            await _table.DeleteAsync(item);
             return true;
         }
 

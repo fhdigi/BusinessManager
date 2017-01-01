@@ -22,6 +22,8 @@ namespace BusinessManager.PageModels
         public Command SaveSupplierCommand { get; set; }
         public Command CancelCommand { get; set; }
 
+        public Command DeleteCommand { get; set; }
+
         #endregion
 
         public AddSupplierPageModel()
@@ -31,6 +33,9 @@ namespace BusinessManager.PageModels
 
             // this gets us out 
             CancelCommand = new Command(async() => await CoreMethods.PopPageModel(null));
+
+            // removes the selected supplier from the database
+            DeleteCommand = new Command(async() => await DeleteSupplier());
         }
 
         public override void Init(object initData)
@@ -87,6 +92,26 @@ namespace BusinessManager.PageModels
                 IsBusy = false;
 
                 // Close the screen
+                await CoreMethods.PopPageModel(CurrentSupplier);
+            }
+        }
+
+        async Task DeleteSupplier()
+        {
+            // no need to do anything if we are not editing
+            if (!EditMode) return;
+
+            // make sure they want to do this
+            bool confirmed =
+                await
+                    CoreMethods.DisplayAlert("Confirm",
+                        "Are you sure you would like to delete this supplier?  Once confirmed, the process cannot be reversed.",
+                        "Yes", "No");
+
+            // delete from the database if confirmed 
+            if (confirmed)
+            {
+                await App.SupplierService.DeleteItem(CurrentSupplier);
                 await CoreMethods.PopPageModel(CurrentSupplier);
             }
         }
