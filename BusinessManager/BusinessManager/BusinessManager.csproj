@@ -76,6 +76,7 @@
     <Compile Include="Views\AddSupplierView.xaml.cs">
       <DependentUpon>AddSupplierView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LcListView.cs" />
     <Compile Include="Views\MainPageView.xaml.cs">
       <DependentUpon>MainPageView.xaml</DependentUpon>
     </Compile>
@@ -98,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +186,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\BudgetListingPage.xaml">

@@ -11,6 +11,8 @@ namespace BusinessManager.ViewModels
     {
         #region Properties
 
+        public bool EditMode;
+
         private Supplier _currentSupplier;
 
         public Supplier CurrentSupplier
@@ -24,16 +26,17 @@ namespace BusinessManager.ViewModels
         #region Commands
 
         public Command SaveSupplierCommand { get; set; }
+        public Command CancelCommand { get; set; }
 
         #endregion
 
         public AddSupplierViewModel()
         {
-            // create a new supplier 
-            CurrentSupplier = new Supplier();
-
             // this is the command to save a new supplier
             SaveSupplierCommand = new Command(async () => await SaveSupplier());
+
+            // this gets us out 
+            CancelCommand = new Command(async() => await NavigationService.PopModalAsync());
         }
 
         #region Methods
@@ -51,11 +54,23 @@ namespace BusinessManager.ViewModels
                 {
                     // Save the supplier 
                     var service = new AzureService<Supplier>();
-                    await service.SaveItem(CurrentSupplier);
 
-                    // Just tell the user the save has been accomplished
-                    SimpleIoc.SimpleIoc.DisplayAlert(this, "Save Confirmation", "The supplier record has been saved",
-                        "OK", "");
+                    if (EditMode == false)
+                    {
+                        await service.SaveItem(CurrentSupplier);
+
+                        // Just tell the user the save has been accomplished
+                        SimpleIoc.SimpleIoc.DisplayAlert(this, "Save Confirmation", "The supplier record has been saved",
+                            "OK", "");
+                    }
+                    else
+                    {
+                        await service.UpdateItem(CurrentSupplier);
+
+                        // Just tell the user the save has been accomplished
+                        SimpleIoc.SimpleIoc.DisplayAlert(this, "Update Confirmation", "The supplier record has been updated",
+                            "OK", "");
+                    }
                 }
             }
             catch (Exception ex)
@@ -67,7 +82,7 @@ namespace BusinessManager.ViewModels
                 IsBusy = false;
 
                 // Close the screen
-                await NavigationService.PopAsync();
+                await NavigationService.PopModalAsync();
             }
         }
 

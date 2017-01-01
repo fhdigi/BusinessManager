@@ -12,8 +12,6 @@ namespace BusinessManager.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private string _initMessage = "";
-        public static ObservableCollection<Supplier> Suppliers { get; set; }
-
         public string InitMessage
         {
             get { return _initMessage; }
@@ -25,6 +23,7 @@ namespace BusinessManager.ViewModels
         public ICommand ShowEnterNewBillPageCommand { get; set; }
         public ICommand ShowEnterNewClientPageCommand { get; set; }
         public ICommand ShowProjectsPageCommand { get; set; }
+        public Command RefreshCommand { get; set; }
 
         public MainPageViewModel()
         {
@@ -35,7 +34,9 @@ namespace BusinessManager.ViewModels
 
             ShowSuppliersViewCommand = new Command(async () => await NavigationService.PushAsync(new SupplierViewModel()));
 
-            ExecuteRefreshCommand();
+            // Set the refresh command 
+            RefreshCommand = new Command(async () => await ExecuteRefreshCommand());
+            RefreshCommand.Execute(null);
         }
 
         private void ShowProjectsPage()
@@ -72,6 +73,7 @@ namespace BusinessManager.ViewModels
             }
             catch (Exception ex)
             {
+                SimpleIoc.SimpleIoc.DisplayErrorMessage(this, ex.Message);
             }
             finally
             {

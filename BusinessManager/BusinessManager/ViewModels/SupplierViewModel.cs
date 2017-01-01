@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using BusinessManager.Models;
 using BusinessManager.Services;
@@ -10,22 +9,40 @@ namespace BusinessManager.ViewModels
 {
     public class SupplierViewModel : BaseViewModel
     {
+        private Supplier _selectedSupplier;
+        private AddSupplierViewModel addSupplierViewModel;
+
         public ObservableRangeCollection<Supplier> Suppliers { get; set; }
+
+        public Supplier SelectedSupplier
+        {
+            get { return _selectedSupplier; }
+            set
+            {
+                ProcPropertyChanged(ref _selectedSupplier, value);
+                ShowEditSupplierViewCommand.Execute(null);
+            }
+        }
 
         #region Command Definitions
 
         public Command GetSuppliersCommand { get; set; }
         public Command ShowAddSupplierViewCommand { get; set; }
+        public Command ShowEditSupplierViewCommand { get; set; }
 
         #endregion
 
         public SupplierViewModel()
         {
+            // we will need this view model later 
+            addSupplierViewModel = new AddSupplierViewModel();
+
             // This becomes the observable collection of suppliers 
             Suppliers = new ObservableRangeCollection<Supplier>();
 
             // this is the command to show the add/edit supplier screen
-            ShowAddSupplierViewCommand = new Command(async () => await SimpleIoc.NavigationService.PushAsync(new AddSupplierViewModel()));
+            ShowAddSupplierViewCommand = new Command(async () => await AddSupplier());
+            ShowEditSupplierViewCommand = new Command(async () => await EditSupplier());
 
             // establish the command to get the list of suppliers 
             GetSuppliersCommand = new Command(async () => await GetSuppliers(),() => !IsBusy);
@@ -65,6 +82,23 @@ namespace BusinessManager.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private async Task AddSupplier()
+        {
+            addSupplierViewModel.CurrentSupplier = new Supplier();
+            addSupplierViewModel.EditMode = false;
+            await SimpleIoc.NavigationService.PushModalAsync(addSupplierViewModel);
+        }
+
+        private async Task EditSupplier()
+        {
+            if (_selectedSupplier != null)
+            {
+                addSupplierViewModel.CurrentSupplier = _selectedSupplier;
+                addSupplierViewModel.EditMode = true;
+                await SimpleIoc.NavigationService.PushModalAsync(addSupplierViewModel);
             }
         }
 

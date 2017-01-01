@@ -6,8 +6,12 @@
     <StackLayout VerticalOptions="Center">
 
         <Label Text="Supplier Name"></Label>
-        <Entry Text="{Binding CurrentSupplier.SupplierName}"></Entry>
-        <Button Text="Save Supplier" Command="{Binding SaveSupplierCommand}"></Button>
+        <Entry Text="{Binding CurrentSupplier.SupplierName, Mode=TwoWay}"></Entry>
+
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Save Supplier" Command="{Binding SaveSupplierCommand}" />
+            <Button Text="Cancel" Command="{Binding CancelCommand}" />
+        </StackLayout>
 
     </StackLayout>
   

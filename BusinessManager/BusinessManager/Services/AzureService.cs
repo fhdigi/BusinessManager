@@ -54,6 +54,14 @@ namespace BusinessManager.Services
             return true;
         }
 
+        public async Task<bool> UpdateItem(T item)
+        {
+            await Initialize();
+            //await SyncItems();
+            await _table.UpdateAsync(item);
+            return true;
+        }
+
         public async Task SyncItems()
         {
             try

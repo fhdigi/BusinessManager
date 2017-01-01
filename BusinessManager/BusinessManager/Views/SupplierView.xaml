@@ -1,34 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:BusinessManager.Views;assembly=BusinessManager"
              x:Class="BusinessManager.Views.SupplierView"
              Title="Supplier">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding ShowAddSupplierViewCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
-  
+
     <StackLayout Padding="10">
 
-      <ListView
-					BackgroundColor="#F7F7F7"
-					RowHeight="50"
-					CachingStrategy="RecycleElement"
-					ItemsSource="{Binding Suppliers}"
-					IsPullToRefreshEnabled="True"
-					IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-          			RefreshCommand="{Binding RefreshCommand}">
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-              <StackLayout Padding="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding SupplierName}" TextColor="#272832" HorizontalOptions="FillAndExpand"/>
-              </StackLayout>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-      </ListView>
-      
+        <ListView
+            BackgroundColor="#F7F7F7"
+            RowHeight="50"
+            ItemsSource="{Binding Suppliers}"
+            IsPullToRefreshEnabled="True"
+            SelectedItem="{Binding SelectedSupplier, Mode=TwoWay}"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            RefreshCommand="{Binding GetSuppliersCommand}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="CenterAndExpand">
+                            <Label Text="{Binding SupplierName}" TextColor="#272832" HorizontalOptions="FillAndExpand" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </StackLayout>
   
 </ContentPage>
