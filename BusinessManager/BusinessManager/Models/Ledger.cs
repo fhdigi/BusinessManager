@@ -5,7 +5,7 @@ namespace BusinessManager.Models
 {
     public class Ledger 
     {
-        //public string Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty(PropertyName = "AssociativeId")]
         public string AssociativeId { get; set; }
@@ -23,7 +23,7 @@ namespace BusinessManager.Models
         public double Amount { get; set; }
 
         [JsonIgnore]
-        public string FormattedTransactionDate => string.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(TransactionDate));
+        public string FormattedTransactionDate => $"{Convert.ToDateTime(TransactionDate):MM/dd/yyyy}";
 
         [JsonIgnore]
         public string FormattedAmount => $"{Amount:c2}";

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Constants\Extensions.cs" />
     <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Ledger.cs" />
@@ -51,7 +52,11 @@
     <Compile Include="PageModels\BasePageModel.cs" />
     <Compile Include="PageModels\BillPageModel.cs" />
     <Compile Include="PageModels\BudgetListingPageModel.cs" />
+    <Compile Include="PageModels\CashFlowReportPageModel.cs" />
     <Compile Include="PageModels\ClientPageModel.cs" />
+    <Compile Include="Pages\CashFlowReportPage.xaml.cs">
+      <DependentUpon>CashFlowReportPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\ObservableRangeCollection.cs" />
     <Compile Include="PageModels\AddSupplierPageModel.cs" />
     <Compile Include="PageModels\MainViewPageModel.cs" />
@@ -224,6 +229,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\CashFlowReportPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

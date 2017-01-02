@@ -10,10 +10,7 @@
         <Entry Text="{Binding CurrentSupplier.SupplierName, Mode=TwoWay}"></Entry>
 
 		<BoxView HeightRequest="1" Color="Green" />
-		<Button Text="Save Supplier" Command="{Binding SaveSupplierCommand}" BackgroundColor="Blue" TextColor="White" />
-
-		<BoxView HeightRequest="1" Color="Green" />
-        <Button Text="Cancel" Command="{Binding CancelCommand}" BackgroundColor="Yellow" TextColor="Black" />
+		<Button Text="{Binding SaveButtonText}" Command="{Binding SaveSupplierCommand}" BackgroundColor="Blue" TextColor="White" />
 
 		<BoxView HeightRequest="1" Color="Green" />
 		<Button Text="Delete" BackgroundColor="Red" TextColor="White" Command="{Binding DeleteCommand}" />

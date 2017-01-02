@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using BusinessManager.Constants;
 using BusinessManager.Models;
 
 namespace BusinessManager.PageModels
@@ -55,21 +56,5 @@ namespace BusinessManager.PageModels
         }
 
 
-    }
-
-
-}
-
-public static class LcExtension
-{
-    public static ObservableCollection<T> ToObservableCollection<T>(this IList<T> value) where T : class
-    {
-        if (value == null)
-        {
-            return null;
-        }
-
-        var observableCollection = new ObservableCollection<T>(value);
-        return observableCollection;
     }
 }

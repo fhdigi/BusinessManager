@@ -26,6 +26,7 @@
         </StackLayout>
 
         <Button Text="Budget Listing" Command="{Binding ShowBudgetListingPageCommand}" />
+      <Button Text="Cash Flow Report" Command="{Binding ShowCashFlowReportCommand}" />
     </StackLayout>
   
 </ContentPage>

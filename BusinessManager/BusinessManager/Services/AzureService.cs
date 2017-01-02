@@ -14,6 +14,8 @@ namespace BusinessManager.Services
         public MobileServiceClient Client { get; set; }
         IMobileServiceSyncTable<T> _table;
 
+        string identifier = typeof(T).Name;
+
         public async Task Initialize()
         {
             if (Client?.SyncContext?.IsInitialized ?? false)
@@ -49,24 +51,24 @@ namespace BusinessManager.Services
         public async Task<bool> SaveItem(T item)
         {
             await Initialize();
-            await SyncItems();
             await _table.InsertAsync(item);
+            await SyncItems();
             return true;
         }
 
         public async Task<bool> UpdateItem(T item)
         {
             await Initialize();
-            await SyncItems();
             await _table.UpdateAsync(item);
+            await SyncItems();
             return true;
         }
 
         public async Task<bool> DeleteItem(T item)
         {
             await Initialize();
-            await SyncItems();
             await _table.DeleteAsync(item);
+            await SyncItems();
             return true;
         }
 
@@ -75,7 +77,7 @@ namespace BusinessManager.Services
             try
             {
                 await Client.SyncContext.PushAsync();
-                await _table.PullAsync("allItems", _table.CreateQuery());
+                await _table.PullAsync($"allItems{identifier}", _table.CreateQuery());
             }
             catch (Exception ex)
             {

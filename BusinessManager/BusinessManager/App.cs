@@ -9,11 +9,15 @@ namespace BusinessManager
     public class App : Application
     {
         public static AzureService<Supplier> SupplierService { get; set; }
+        public static AzureService<Ledger> LedgerService { get; set; }
 
         public App()
         {
+            // Establish connections to the services 
             SupplierService = new AzureService<Supplier>();
+            LedgerService = new AzureService<Ledger>();
 
+            // Wire up to display the main page 
             var page = FreshPageModelResolver.ResolvePageModel<MainViewPageModel>();
             var basicNavContainer = new FreshNavigationContainer(page);
             MainPage = basicNavContainer;

@@ -1,26 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using BusinessManager.Models;
+using PropertyChanged;
 using Xamarin.Forms;
 
 namespace BusinessManager.PageModels
 {
-   public class BillPageModel
+    [ImplementPropertyChanged]
+    public class BillPageModel : BasePageModel
     {
-        public ObservableCollection<Supplier> Suppliers { get; set; }
+        public IEnumerable<Supplier> Suppliers { get; set; }
         public Supplier SelectedSupplier { get; set; }
-        public bool IsBusy { get; set; }
         public DateTime TransactionDate { get; set; }
         public double Amount { get; set; }
 
         public ICommand SaveBillCommand { get; set; }
+        public Command FillSupplierListCommand { get; set; }
 
         public BillPageModel()
         {
-            // Estalish the commands 
-            SaveBillCommand = new Command(SaveBill);
+            // Estalish the command to save the bill
+            SaveBillCommand = new Command(async () => await SaveBill());
+
+            // Establish the command to fill in the supplier listing 
+            FillSupplierListCommand = new Command(async () => await GetSupplierList());
 
             // This will become the selected supplier 
             SelectedSupplier = null;
@@ -29,15 +35,11 @@ namespace BusinessManager.PageModels
             TransactionDate = DateTime.Today;
             Amount = 0.0;
 
-            // We are going to need Suppliers and Ledgers 
-            //var client = AppServiceHelpers.EasyMobileServiceClient.Current;
-            //Suppliers = new ConnectedObservableCollection<Supplier>(client.Table<Supplier>());
-
             // This will fill in the supplier dropdown 
-            Task.Run(async () => { await ExecuteRefreshCommand(); }).Wait();
+            FillSupplierListCommand.Execute(null);
         }
 
-        private void SaveBill()
+        private async Task SaveBill()
         {
             // make sure we have a supplier
             if (SelectedSupplier != null)
@@ -51,13 +53,15 @@ namespace BusinessManager.PageModels
                     Description = SelectedSupplier.SupplierName
                 };
 
-                // Save the item
-                //var client = AppServiceHelpers.EasyMobileServiceClient.Current;
-                //Task.Run(async () => { await client.Table<Ledger>().AddAsync(ledgerItem); }).Wait();
+                // Save the bill
+                await App.LedgerService.SaveItem(ledgerItem);
+
+                // Close the screen
+                await CoreMethods.PopPageModel();
             }
         }
 
-        async Task ExecuteRefreshCommand()
+        private async Task GetSupplierList()
         {
             if (IsBusy)
                 return;
@@ -66,11 +70,11 @@ namespace BusinessManager.PageModels
 
             try
             {
-                //await Suppliers.Refresh();
+                Suppliers = await App.SupplierService.GetItems();
             }
             catch (Exception ex)
             {
-                //await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
+                await CoreMethods.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

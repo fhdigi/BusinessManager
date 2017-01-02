@@ -187,6 +187,10 @@
     <AndroidResource Include="Resources\values\styles.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\XamarinFormsBindablePicker-master\XamarinFormsBindablePicker\XamarinFormsBindablePicker\XamarinFormsBindablePicker.csproj">
+      <Project>{2ee7edc0-ecba-43f7-a2cc-37df504832b9}</Project>
+      <Name>XamarinFormsBindablePicker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BusinessManager\BusinessManager.csproj">
       <Project>{f26b962c-ea94-46e7-81ef-45d7f4800325}</Project>
       <Name>BusinessManager</Name>

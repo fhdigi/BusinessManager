@@ -12,16 +12,15 @@ namespace BusinessManager.PageModels
     {
         #region Properties
 
-        public bool EditMode;
+        private bool _editMode;
         public Supplier CurrentSupplier { get; set; }
+        public string SaveButtonText { get; set; }
 
         #endregion
 
         #region Commands
 
         public Command SaveSupplierCommand { get; set; }
-        public Command CancelCommand { get; set; }
-
         public Command DeleteCommand { get; set; }
 
         #endregion
@@ -31,9 +30,6 @@ namespace BusinessManager.PageModels
             // this is the command to save a new supplier
             SaveSupplierCommand = new Command(async () => await SaveSupplier());
 
-            // this gets us out 
-            CancelCommand = new Command(async() => await CoreMethods.PopPageModel(null));
-
             // removes the selected supplier from the database
             DeleteCommand = new Command(async() => await DeleteSupplier());
         }
@@ -42,13 +38,15 @@ namespace BusinessManager.PageModels
         {
             if (initData == null)
             {
-                EditMode = false;
+                _editMode = false;
                 CurrentSupplier = new Supplier();
+                SaveButtonText = "Save Supplier";
             }
             else
             {
-                EditMode = true;
+                _editMode = true;
                 CurrentSupplier = initData as Supplier;
+                SaveButtonText = "Update Supplier";
             }
         }
 
@@ -65,7 +63,7 @@ namespace BusinessManager.PageModels
             {
                 if (CurrentSupplier != null)
                 {
-                    if (EditMode == false)
+                    if (_editMode == false)
                     {
                         await App.SupplierService.SaveItem(CurrentSupplier);
 
@@ -99,7 +97,7 @@ namespace BusinessManager.PageModels
         async Task DeleteSupplier()
         {
             // no need to do anything if we are not editing
-            if (!EditMode) return;
+            if (!_editMode) return;
 
             // make sure they want to do this
             bool confirmed =

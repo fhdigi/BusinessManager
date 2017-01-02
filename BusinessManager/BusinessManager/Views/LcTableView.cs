@@ -9,12 +9,12 @@ namespace BusinessManager.Views
         #region Properties
 
         public static readonly BindableProperty BudgetItemsProperty = BindableProperty.Create("BudgetItems",
-            typeof(ObservableCollection<Budget>), typeof(LcTableView), null, BindingMode.OneWay, null,
+            typeof(ObservableCollection<Ledger>), typeof(LcTableView), null, BindingMode.OneWay, null,
             (bindable, oldValue, newValue) => { ((LcTableView) bindable).UpdateChildren(); });
 
-        public ObservableCollection<Budget> BudgetItems
+        public ObservableCollection<Ledger> BudgetItems
         {
-            get { return (ObservableCollection<Budget>) GetValue(BudgetItemsProperty); }
+            get { return (ObservableCollection<Ledger>) GetValue(BudgetItemsProperty); }
             set { SetValue(BudgetItemsProperty, value); }
         }
 
@@ -65,7 +65,7 @@ namespace BusinessManager.Views
                 budgetGrid.Children.Add(topSeparatorLine, 0, rowCount);
                 Grid.SetColumnSpan(topSeparatorLine, 2);
 
-                foreach (Budget bItem in BudgetItems)
+                foreach (Ledger bItem in BudgetItems)
                 {
                     rowCount++;
                     budgetGrid.Children.Add(new Label { Text = bItem.Description }, 0, rowCount);
