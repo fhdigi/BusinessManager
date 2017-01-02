@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using BusinessManager.Models;
+﻿using BusinessManager.Models;
 using BusinessManager.PageModels;
 using BusinessManager.Services;
 using FreshMvvm;
@@ -12,12 +10,14 @@ namespace BusinessManager
     {
         public static AzureService<Supplier> SupplierService { get; set; }
         public static AzureService<Ledger> LedgerService { get; set; }
+        public static AzureService<Client> ClientService { get; set; }
 
         public App()
         {
             // Establish connections to the services 
             SupplierService = new AzureService<Supplier>();
             LedgerService = new AzureService<Ledger>();
+            ClientService = new AzureService<Client>();
 
             var masterDetailNav = new FreshMasterDetailNavigationContainer();
             masterDetailNav.Init("Business Manager");

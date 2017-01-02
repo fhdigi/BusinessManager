@@ -55,7 +55,7 @@
     <Compile Include="PageModels\BillPageModel.cs" />
     <Compile Include="PageModels\BudgetListingPageModel.cs" />
     <Compile Include="PageModels\CashFlowReportPageModel.cs" />
-    <Compile Include="PageModels\ClientPageModel.cs" />
+    <Compile Include="PageModels\ClientListingPageModel.cs" />
     <Compile Include="PageModels\LedgerHomePageModel.cs" />
     <Compile Include="Pages\ApHomePage.xaml.cs">
       <DependentUpon>ApHomePage.xaml</DependentUpon>
@@ -87,13 +87,12 @@
     <Compile Include="Pages\BudgetListingPage.xaml.cs">
       <DependentUpon>BudgetListingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ClientPage.xaml.cs">
-      <DependentUpon>ClientPage.xaml</DependentUpon>
+    <Compile Include="Pages\ClientListingPage.xaml.cs">
+      <DependentUpon>ClientListingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddSupplierPage.xaml.cs">
       <DependentUpon>AddSupplierPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LcListView.cs" />
     <Compile Include="Pages\MainViewPage.xaml.cs">
       <DependentUpon>MainViewPage.xaml</DependentUpon>
     </Compile>
@@ -222,7 +221,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\ClientPage.xaml">
+    <EmbeddedResource Include="Pages\ClientListingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

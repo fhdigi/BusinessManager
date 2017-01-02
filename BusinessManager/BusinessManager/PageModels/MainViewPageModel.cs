@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using BusinessManager.Models;
-using BusinessManager.Services;
 using PropertyChanged;
 using Xamarin.Forms;
 
@@ -14,7 +12,6 @@ namespace BusinessManager.PageModels
         public string InitMessage { get; set; }
 
         public ICommand ShowBudgetListingPageCommand { get; set; }
-        public ICommand ShowEnterNewClientPageCommand { get; set; }
         public ICommand ShowProjectsPageCommand { get; set; }
         public Command RefreshCommand { get; set; }
         public Command ShowCashFlowReportCommand { get; set; }
@@ -22,7 +19,6 @@ namespace BusinessManager.PageModels
         public MainViewPageModel()
         {
             ShowBudgetListingPageCommand = new Command(ShowBudgetListing);
-            ShowEnterNewClientPageCommand = new Command(ShowEnterNewClientPage);
             ShowProjectsPageCommand = new Command(ShowProjectsPage);
 
             // When the user wants to see the cash flow report
@@ -36,11 +32,6 @@ namespace BusinessManager.PageModels
         private void ShowProjectsPage()
         {
             //CoreMethods.PushPageModel<ProjectPageModel>();
-        }
-
-        private void ShowEnterNewClientPage()
-        {
-            //CoreMethods.PushPageModel<ClientPageModel>();
         }
 
         private void ShowBudgetListing()

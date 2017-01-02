@@ -6,6 +6,7 @@ namespace BusinessManager.PageModels
     {
         public Command ShowEnterNewBillPageCommand { get; set; }
         public Command ShowSuppliersViewCommand { get; set; }
+        public Command ShowClientListingCommand { get; set; }
 
         public ApHomePageModel()
         {
@@ -14,6 +15,9 @@ namespace BusinessManager.PageModels
 
             // Show the supplier listing 
             ShowSuppliersViewCommand = new Command(async () => await CoreMethods.PushPageModel<SupplierListingPageModel>());
+
+            // Show the client listing page
+            ShowClientListingCommand = new Command(async () => await CoreMethods.PushPageModel<ClientListingPageModel>());
         }
     }
 }
