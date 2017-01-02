@@ -1,4 +1,6 @@
-﻿using BusinessManager.Models;
+﻿using System;
+using System.Collections.Generic;
+using BusinessManager.Models;
 using BusinessManager.PageModels;
 using BusinessManager.Services;
 using FreshMvvm;
@@ -17,10 +19,13 @@ namespace BusinessManager
             SupplierService = new AzureService<Supplier>();
             LedgerService = new AzureService<Ledger>();
 
-            // Wire up to display the main page 
-            var page = FreshPageModelResolver.ResolvePageModel<MainViewPageModel>();
-            var basicNavContainer = new FreshNavigationContainer(page);
-            MainPage = basicNavContainer;
+            var masterDetailNav = new FreshMasterDetailNavigationContainer();
+            masterDetailNav.Init("Business Manager");
+            masterDetailNav.AddPage<MainViewPageModel>("Home");
+            masterDetailNav.AddPage<LedgerHomePageModel>("Ledger");
+            masterDetailNav.AddPage<ArHomePageModel>("Receivables");
+            masterDetailNav.AddPage<ApHomePageModel>("Payables");
+            MainPage = masterDetailNav;
         }
 
         public bool IsBusy { get; set; }

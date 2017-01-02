@@ -17,6 +17,7 @@
         <Entry Text="{Binding Amount}"></Entry>
 
         <Button Text="Save" Command="{Binding SaveBillCommand}" />
+        <Button Text="Cancel" Command="{Binding CancelBillCommand}" />
 
     </StackLayout>
   

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BusinessManager.Constants;
 using BusinessManager.Models;
 using BusinessManager.Services;
 using PropertyChanged;
@@ -13,17 +12,27 @@ namespace BusinessManager.PageModels
     [ImplementPropertyChanged]
     public class CashFlowReportPageModel : BasePageModel
     {
-        public ObservableRangeCollection<Ledger> ExpenseListing { get; set; }
+        #region Properties
+
+        public ObservableRangeCollection<Budget> ExpenseListing { get; set; }
         public double ExpenseTotal { get; set; }
+
+        #endregion
+
+        #region Commands
 
         public Command GetExpenseListingCommand { get; set; }
 
+        #endregion
+
         public CashFlowReportPageModel()
         {
-            ExpenseListing = new ObservableRangeCollection<Ledger>();
+            ExpenseListing = new ObservableRangeCollection<Budget>();
             GetExpenseListingCommand = new Command(async () => await GetExpenses());
             GetExpenseListingCommand.Execute(null);
         }
+
+        #region Methods
 
         private async Task GetExpenses()
         {
@@ -33,8 +42,7 @@ namespace BusinessManager.PageModels
 
             try
             {
-                var expenses = await App.LedgerService.GetItems();
-                ExpenseListing.AddRange(expenses);
+                ExpenseListing.AddRange(await Budget.ConvertToBudgetList());
                 ExpenseTotal = ExpenseListing.Sum(x => x.Amount);
             }
             catch (Exception ex)
@@ -46,5 +54,8 @@ namespace BusinessManager.PageModels
                 IsBusy = false;
             }
         }
+
+        #endregion
+
     }
 }

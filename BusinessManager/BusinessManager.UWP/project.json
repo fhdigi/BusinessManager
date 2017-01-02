@@ -1,5 +1,6 @@
 ﻿{
   "dependencies": {
+    "FreshMvvm": "2.2.0",
     "Microsoft.Azure.Mobile.Client": "3.0.3",
     "Microsoft.Azure.Mobile.Client.SQLiteStore": "3.0.3",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",

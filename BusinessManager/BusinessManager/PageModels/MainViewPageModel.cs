@@ -9,14 +9,11 @@ using Xamarin.Forms;
 namespace BusinessManager.PageModels
 {
     [ImplementPropertyChanged]
-    public class MainViewPageModel : FreshMvvm.FreshBasePageModel
+    public class MainViewPageModel : BasePageModel
     {
         public string InitMessage { get; set; }
-        public bool IsBusy { get; set; }
 
-        public Command ShowSuppliersViewCommand { get; set; }
         public ICommand ShowBudgetListingPageCommand { get; set; }
-        public Command ShowEnterNewBillPageCommand { get; set; }
         public ICommand ShowEnterNewClientPageCommand { get; set; }
         public ICommand ShowProjectsPageCommand { get; set; }
         public Command RefreshCommand { get; set; }
@@ -27,12 +24,6 @@ namespace BusinessManager.PageModels
             ShowBudgetListingPageCommand = new Command(ShowBudgetListing);
             ShowEnterNewClientPageCommand = new Command(ShowEnterNewClientPage);
             ShowProjectsPageCommand = new Command(ShowProjectsPage);
-
-            // Show the supplier listing 
-            ShowSuppliersViewCommand = new Command(async () => await CoreMethods.PushPageModel<SupplierListingPageModel>());
-
-            // When the user wants to enter a bill
-            ShowEnterNewBillPageCommand = new Command(async () => await CoreMethods.PushPageModel<BillPageModel>());
 
             // When the user wants to see the cash flow report
             ShowCashFlowReportCommand = new Command(async () => await CoreMethods.PushPageModel<CashFlowReportPageModel>());

@@ -4,6 +4,7 @@
              x:Class="BusinessManager.Pages.MainViewPage">
 
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+      
         <Label Text="{Binding InitMessage}" TextColor="Red" />
         <Label Text="Main Page - Business Manager" />
         <BoxView HeightRequest="3" Color="Green" />
@@ -20,13 +21,10 @@
         <Label Text="Accounts Payable" />
         <BoxView HeightRequest="3" Color="Green" />
 
-        <StackLayout Orientation="Horizontal">
-            <Button Text="Enter New Bill" Command="{Binding ShowEnterNewBillPageCommand}" />
-            <Button Text="Suppliers" Command="{Binding ShowSuppliersViewCommand}" />
-        </StackLayout>
-
         <Button Text="Budget Listing" Command="{Binding ShowBudgetListingPageCommand}" />
-      <Button Text="Cash Flow Report" Command="{Binding ShowCashFlowReportCommand}" />
+
+        <Button Text="Cash Flow Report" Command="{Binding ShowCashFlowReportCommand}" />
+      
     </StackLayout>
   
 </ContentPage>

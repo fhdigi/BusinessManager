@@ -9,12 +9,12 @@ namespace BusinessManager.Views
         #region Properties
 
         public static readonly BindableProperty BudgetItemsProperty = BindableProperty.Create("BudgetItems",
-            typeof(ObservableCollection<Ledger>), typeof(LcTableView), null, BindingMode.OneWay, null,
+            typeof(ObservableCollection<Budget>), typeof(LcTableView), null, BindingMode.OneWay, null,
             (bindable, oldValue, newValue) => { ((LcTableView) bindable).UpdateChildren(); });
 
-        public ObservableCollection<Ledger> BudgetItems
+        public ObservableCollection<Budget> BudgetItems
         {
-            get { return (ObservableCollection<Ledger>) GetValue(BudgetItemsProperty); }
+            get { return (ObservableCollection<Budget>) GetValue(BudgetItemsProperty); }
             set { SetValue(BudgetItemsProperty, value); }
         }
 
@@ -53,8 +53,8 @@ namespace BusinessManager.Views
                     budgetGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                 }
 
-                budgetGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = 300 });
-                budgetGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = 150 });
+                budgetGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star)});
+                budgetGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star)});
 
                 // Write the header text 
                 int rowCount = 0;
@@ -65,7 +65,7 @@ namespace BusinessManager.Views
                 budgetGrid.Children.Add(topSeparatorLine, 0, rowCount);
                 Grid.SetColumnSpan(topSeparatorLine, 2);
 
-                foreach (Ledger bItem in BudgetItems)
+                foreach (Budget bItem in BudgetItems)
                 {
                     rowCount++;
                     budgetGrid.Children.Add(new Label { Text = bItem.Description }, 0, rowCount);

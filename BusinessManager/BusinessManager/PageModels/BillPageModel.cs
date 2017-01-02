@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using BusinessManager.Models;
 using PropertyChanged;
 using Xamarin.Forms;
@@ -17,13 +15,17 @@ namespace BusinessManager.PageModels
         public DateTime TransactionDate { get; set; }
         public double Amount { get; set; }
 
-        public ICommand SaveBillCommand { get; set; }
+        public Command SaveBillCommand { get; set; }
         public Command FillSupplierListCommand { get; set; }
+        public Command CancelBillCommand { get; set; }
 
         public BillPageModel()
         {
             // Estalish the command to save the bill
             SaveBillCommand = new Command(async () => await SaveBill());
+
+            // When the user clicks the cancel button 
+            CancelBillCommand = new Command(async () => await CoreMethods.PopPageModel(true));
 
             // Establish the command to fill in the supplier listing 
             FillSupplierListCommand = new Command(async () => await GetSupplierList());

@@ -49,13 +49,25 @@
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="PageModels\AccountsPayablePageModel.cs" />
     <Compile Include="PageModels\AccountsReceivablePageModel.cs" />
+    <Compile Include="PageModels\ApHomePageModel.cs" />
+    <Compile Include="PageModels\ArHomePageModel.cs" />
     <Compile Include="PageModels\BasePageModel.cs" />
     <Compile Include="PageModels\BillPageModel.cs" />
     <Compile Include="PageModels\BudgetListingPageModel.cs" />
     <Compile Include="PageModels\CashFlowReportPageModel.cs" />
     <Compile Include="PageModels\ClientPageModel.cs" />
+    <Compile Include="PageModels\LedgerHomePageModel.cs" />
+    <Compile Include="Pages\ApHomePage.xaml.cs">
+      <DependentUpon>ApHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ArHomePage.xaml.cs">
+      <DependentUpon>ArHomePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\CashFlowReportPage.xaml.cs">
       <DependentUpon>CashFlowReportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LedgerHomePage.xaml.cs">
+      <DependentUpon>LedgerHomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\ObservableRangeCollection.cs" />
     <Compile Include="PageModels\AddSupplierPageModel.cs" />
@@ -232,6 +244,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\CashFlowReportPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\LedgerHomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ApHomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ArHomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

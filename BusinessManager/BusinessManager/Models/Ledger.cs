@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace BusinessManager.Models
 {
-    public class Ledger 
+    public class Ledger
     {
         public string Id { get; set; }
 

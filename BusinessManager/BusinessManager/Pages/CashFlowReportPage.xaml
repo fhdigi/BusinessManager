@@ -6,13 +6,21 @@
              x:Class="BusinessManager.Pages.CashFlowReportPage"
              Title="Cash Flow Report">
 
-    <StackLayout Padding="15">
 
-        <Label Text="Report Dates" />
-        <views:LcTableView HeaderText="Expenses" BudgetItems="{Binding ExpenseListing}"
-                           ListTotal="{Binding ExpenseTotal}" />
-        <Label Text="{Binding ExpenseTotal}" />
+    <ScrollView>
 
-    </StackLayout>
+        <StackLayout Padding="15">
+
+            <Label Text="Report Dates" />
+            <views:LcTableView HeaderText="Account Balances" BudgetItems="{Binding ExpenseListing}"
+                               ListTotal="{Binding ExpenseTotal}" />
+            <views:LcTableView HeaderText="Income" BudgetItems="{Binding ExpenseListing}"
+                               ListTotal="{Binding ExpenseTotal}" />
+            <views:LcTableView HeaderText="Expenses" BudgetItems="{Binding ExpenseListing}"
+                               ListTotal="{Binding ExpenseTotal}" />
+
+        </StackLayout>
+
+    </ScrollView>
 
 </ContentPage>
