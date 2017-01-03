@@ -33,10 +33,6 @@
 
         </ListView>
 
-        <Label Text="Client Name"></Label>
-        <Entry Text="{Binding CurrentClient.ClientName}"></Entry>
-        <Button Text="Save Client" Command="{Binding SaveClientCommand}"></Button>
-
     </StackLayout>
 
 </ContentPage>

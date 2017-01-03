@@ -51,6 +51,9 @@ namespace BusinessManager.PageModels
                     AssociativeId = SelectedSupplier.Id,
                     Amount = Amount,
                     TransactionDate = TransactionDate,
+                    DebitAccount = 600000,
+                    CreditAccount = 200000,
+                    DateDue = TransactionDate + new TimeSpan(30, 0, 0, 0),
                     TransactionType = 1,
                     Description = SelectedSupplier.SupplierName
                 };

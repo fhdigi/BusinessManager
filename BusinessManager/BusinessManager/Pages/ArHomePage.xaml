@@ -6,6 +6,7 @@
     <StackLayout>
         <Label Text="AR Home Page"></Label>
         <Button Text="Client Listing" Command="{Binding ShowClientListingCommand}" />
+        <Button Text="Project Listing" Command="{Binding ShowProjectListingCommand}" />
         <Button Text="Create Invoice" />
         <Button Text="Open Receivable Report" />
     </StackLayout>

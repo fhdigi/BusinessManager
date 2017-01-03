@@ -11,6 +11,7 @@ namespace BusinessManager
         public static AzureService<Supplier> SupplierService { get; set; }
         public static AzureService<Ledger> LedgerService { get; set; }
         public static AzureService<Client> ClientService { get; set; }
+        public static AzureService<Invoice> InvoiceService { get; set; }
 
         public App()
         {
@@ -18,6 +19,7 @@ namespace BusinessManager
             SupplierService = new AzureService<Supplier>();
             LedgerService = new AzureService<Ledger>();
             ClientService = new AzureService<Client>();
+            InvoiceService = new AzureService<Invoice>();
 
             var masterDetailNav = new FreshMasterDetailNavigationContainer();
             masterDetailNav.Init("Business Manager");

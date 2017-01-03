@@ -22,6 +22,21 @@ namespace BusinessManager.Models
         [JsonProperty(PropertyName = "Amount")]
         public double Amount { get; set; }
 
+        [JsonProperty(PropertyName = "DebitAccount")]
+        public int DebitAccount { get; set; }
+
+        [JsonProperty(PropertyName = "CreditAccount")]
+        public int CreditAccount { get; set; }
+
+        [JsonProperty(PropertyName = "DateDue")]
+        public DateTime DateDue { get; set; }
+
+        [JsonProperty(PropertyName = "Status")]
+        public int Status { get; set; }
+
+        [JsonProperty(PropertyName = "StatusLink")]
+        public int StatusLink { get; set; }
+        
         [JsonIgnore]
         public string FormattedTransactionDate => $"{Convert.ToDateTime(TransactionDate):MM/dd/yyyy}";
 
