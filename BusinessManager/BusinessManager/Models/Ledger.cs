@@ -3,10 +3,8 @@ using Newtonsoft.Json;
 
 namespace BusinessManager.Models
 {
-    public class Ledger
+    public class Ledger : BaseAzureEntityData
     {
-        public string Id { get; set; }
-
         [JsonProperty(PropertyName = "AssociativeId")]
         public string AssociativeId { get; set; }
 

@@ -3,7 +3,7 @@
 
 namespace BusinessManager.Models
 {
-    public class Project 
+    public class Project : BaseAzureEntityData
     {
         [JsonProperty(PropertyName = "ProjectName")]
         public string ProjectName { get; set; }

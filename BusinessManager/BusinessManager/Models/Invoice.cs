@@ -2,10 +2,8 @@
 
 namespace BusinessManager.Models
 {
-    public class Invoice
+    public class Invoice : BaseAzureEntityData
     {
-        public string Id { get; set; }
-
         [JsonProperty(PropertyName = "AssociatedProjectId")]
         public string AssociatedProjectId { get; set; }
 

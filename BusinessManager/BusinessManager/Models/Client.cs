@@ -2,10 +2,8 @@
 
 namespace BusinessManager.Models
 {
-    public class Client 
+    public class Client : BaseAzureEntityData
     {
-        public string Id { get; set; }
-
         [JsonProperty(PropertyName = "ClientName")]
         public string ClientName { get; set; }
     }

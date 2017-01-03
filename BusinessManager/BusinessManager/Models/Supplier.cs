@@ -2,10 +2,8 @@
 
 namespace BusinessManager.Models
 {
-    public class Supplier
+    public class Supplier : BaseAzureEntityData
     {
-        public string Id { get; set; }
-
         [JsonProperty(PropertyName = "SupplierName")]
         public string SupplierName { get; set; }
 
