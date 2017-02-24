@@ -1,25 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BusinessManager.Pages.MainViewPage">
-
-    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-
-        <Label Text="{Binding InitMessage}" TextColor="Red" />
-        <Label Text="Main Page - Business Manager" />
-        <BoxView HeightRequest="3" Color="Green" />
-
-        <Label Text="Accounts Receivable" />
-        <BoxView HeightRequest="3" Color="Green" />
-
-        <Button Text="Projects" Command="{Binding ShowProjectsPageCommand}" />
-
-        <BoxView HeightRequest="3" Color="Green" />
-
-        <Button Text="Budget Listing" Command="{Binding ShowBudgetListingPageCommand}" />
-
-        <Button Text="Cash Flow Report" Command="{Binding ShowCashFlowReportCommand}" />
-
-    </StackLayout>
-  
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="BusinessManager.Pages.MainViewPage">
+	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+		<Label Text="{Binding InitMessage}" TextColor="Red" />
+		<Label Text="Main Page - Business Manager" />
+		<BoxView HeightRequest="6" Color="Red" />
+		<Label Text="Accounts Receivable" />
+		<BoxView HeightRequest="3" Color="Green" />
+		<Button Text="Active Projects" Command="{Binding ShowProjectsPageCommand}" />
+		<BoxView HeightRequest="3" Color="Green" />
+		<Button Text="Budget Listing" Command="{Binding ShowBudgetListingPageCommand}" />
+		<Button Text="Cash Flow Report" Command="{Binding ShowCashFlowReportCommand}" />
+	</StackLayout>
 </ContentPage>
